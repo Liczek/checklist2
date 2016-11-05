@@ -31,7 +31,7 @@ class TableViewController: UITableViewController {
         
         let row3item = ChecklistItem()
         row3item.text = "Kontynuacja nauki Swift"
-        row3item.checked = false
+        row3item.checked = true
         items.append(row3item)
         
         let row4item = ChecklistItem()
@@ -44,6 +44,7 @@ class TableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -63,11 +64,19 @@ class TableViewController: UITableViewController {
         
         configureText(for: cell, with: item)
         
+        configureCheckmark(for: cell, with: item)
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
+        if let cell = tableView.cellForRow(at: indexPath){
+        
+        let item = items[indexPath.row]
+        item.togglecheck()
+        configureCheckmark(for: cell, with: item)
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -76,6 +85,14 @@ class TableViewController: UITableViewController {
     func configureText(for cell: UITableViewCell, with item: ChecklistItem){
         let label = cell.viewWithTag(100) as! UILabel
         label.text = item.text
+    }
+    
+    func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem){
+        if item.checked{
+            cell.accessoryType = .checkmark
+        }else{
+            cell.accessoryType = .none
+        }
     }
 
 
