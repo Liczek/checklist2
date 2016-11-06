@@ -79,6 +79,7 @@ class TableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+        
     // Methods
     
     func configureText(for cell: UITableViewCell, with item: ChecklistItem){
@@ -93,6 +94,22 @@ class TableViewController: UITableViewController {
         }else{
             cell.accessoryType = .none
         }
+        
+    }
+    
+    @IBAction func adItem() {
+        
+        let newRowIndex = items.count
+        
+        let item = ChecklistItem()
+        item.text = "Nowy row"
+        item.checked = true
+        items.append(item)
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths, with: .automatic)
+
         
     }
 
